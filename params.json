@@ -1,0 +1,6 @@
+{
+  "name": "Ee202a-proj",
+  "tagline": "Repo for EE 202A project, Fall 2016",
+  "body": "###S-SLATS: Scalable Simultaneous Localization and Time Synchronization\r\nDescription: As the density of wireless, resource-constrained sensors grows, so does the need to choreograph their actions across both time and space. We aim to develop a novel approach to simultaneously localizing and time synchronizing networked mobile devices. We would like to extend the size of a network of test beds by duplicating an available PCB design to show the scalability factor. Then use scalable distributed kalman filter to simultaneously localize and time synchronize a network of testbeds.",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}
