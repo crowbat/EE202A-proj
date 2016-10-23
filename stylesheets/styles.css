@@ -157,13 +157,6 @@ img {
   max-width:100%;
 }
 
-header {
-  width:270px;
-  float:left;
-  position:fixed;
-  -webkit-font-smoothing:subpixel-antialiased;
-}
-
 header ul {
   list-style:none;
   height:40px;
