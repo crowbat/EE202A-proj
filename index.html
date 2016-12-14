@@ -19,6 +19,9 @@
       function weekly_progress() {
         $('#mycontent').load('weekly_progress.html');
       }
+      function dkf_guide() {
+        $('#mycontent').load('dkf_guide.html');
+      }
     </script>
     <div class="wrapper">
       <header>
@@ -28,13 +31,31 @@
           Supervised by Prof. Mani Srivastava
         </p>
       </header>
-      <ul class="w3-navbar w3-border w3-light-grey">
+      <ul class="w3-navbar w3-light-grey">
         <li><a onclick="overview()" href="javascript:void(0);">Overview</a></li>
         <li><a onclick="weekly_progress()" href="javascript:void(0);">Weekly Progress</a></li>
-        <li><a class="w3-hover-green" href="#">Link 2</a></li>
-        <li><a class="w3-hover-teal" href="#">Link 3</a></li>
+        <li><a onclick="dkf_guide()" href="javascript:void(0);">DKF Guide</a></li>
+        <li><a href="#">Link 3</a></li>
       </ul>
+      <br>
       <div id="mycontent">
+        <p>Description: As the density of wireless, resource-constrained sensors grows, so does the need to choreograph their 
+            actions across both time and space. We aim to develop a novel approach to simultaneously localizing and time 
+            synchronizing networked mobile devices. We would like to extend the size of a network of test beds by duplicating 
+            an available PCB design to show the scalability factor. Then use scalable distributed kalman filter to simultaneously 
+            localize and time synchronize a network of testbeds.</p>
+        <p>The Networked and Embedded Systems Lab (NESL) currently has a setup with several monitors placed around the room, 
+            tracking a series of stationary nodes using UWB. Existing programs allow us to estimate their positions and clock 
+            skew by utilizing a distributed Kalman filter at each node. The problem is that each node currently works with 
+            state vectors containing information about all nodes; as the number of nodes increases, such computation will 
+            quickly grow to become unscalable.
+            <br>
+            <br>
+            Our goal is to implement a distributed Kalman filtering scheme at each node that allows each node to 
+            estimate its own state and that of its neighbors, without requiring data or estimation about other nodes in the 
+            network. Much of our research has been focused on the paper "Distributing the Kalman Filter for 
+            Large-Scale Systems", by Usman A. Khan and Jos&eacute; M.F. Moura.
+        </p>
       </div>
     </div>
     <script src="javascripts/scale.fix.js"></script>
