@@ -7,167 +7,182 @@
 
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/github-light.css">
+    <link rel="stylesheet" href="stylesheets/w3.css">
+    <script src="javascripts/jquery-3.1.1.min.js"></script>
     <meta name="viewport" content="width=device-width">
   </head>
   <body>
+    <script type="text/javascript">
+      function overview() {
+        $('#mycontent').load('overview.html');
+      }
+    </script>
     <div class="wrapper">
       <header>
         <h1>S-SLATS: Scalable Simultaneous Localization and Time Synchronization</h1>
-        <p>Rohit Bhasi and Kevin Hsieh<br>
+        <p>Rohit Bhasi, Kevin Hsieh, and Keith Rumney<br>
           EE 202A Project - Fall 2016<br>
           Supervised by Prof. Mani Srivastava
         </p>
       </header>
-      <p>Description: As the density of wireless, resource-constrained sensors grows, so does the need to choreograph their 
-        actions across both time and space. We aim to develop a novel approach to simultaneously localizing and time 
-        synchronizing networked mobile devices. We would like to extend the size of a network of test beds by duplicating 
-        an available PCB design to show the scalability factor. Then use scalable distributed kalman filter to simultaneously 
-        localize and time synchronize a network of testbeds.</p>
-      <p>The Networked and Embedded Systems Lab (NESL) currently has a setup with several monitors placed around the room, 
-        tracking a series of stationary nodes using UWB. Existing programs allow us to estimate their positions and clock 
-        skew by utilizing a distributed Kalman filter at each node. The problem is that each node currently works with 
-        state vectors containing information about all nodes; as the number of nodes increases, such computation will 
-        quickly grow to become unscalable.
-        <br>
-        <br>
-        Our current goal is to implement a distributed Kalman filtering scheme at each node that allows each node to 
-        estimate its own state and that of its neighbors, without requiring data or estimation about other nodes in the 
-        network. Preliminary research has identified two papers of possible use; "Distributing the Kalman Filter for 
-        Large-Scale Systems", by Usman A. Khan and Jos&eacute; M.F. Moura, and "Distributed Kalman Filtering for Sensor 
-        Networks", by R. Olfati-Saber.
-      </p>
-      <hr>
-      <h2>Weekly Progress</h2>
-      <h3>Week 5 and 6</h3>
-      <p>We have been working to identify and fit the matrices and equations involved in our setup with that of the paper by 
-        Khan and Moura.  We have created a summarized guide that we plan to follow in order to get the Kalman filter 
-        working.  The guide can be found <a href="https://github.com/crowbat/EE202A-proj/blob/gh-pages/dkf_guide.pdf">here
-      </a>.
-      <h3>Week 4</h3>
-      <p>This week’s goal was to identify and study distributed algorithms for localization and time synchronization. 
-        In this front, we were able to identify 2 papers that would possibly meet our requirements. The main ideas of each 
-        paper are introduced below; the actual algorithms can be found in the papers listed.<br><br>
-      <b>Distributing the Kalman Filter for Large-Scale Systems [Usman A. Khan, Jose M. F. Moura]</b><br><br>
-      This paper presents one identified algorithm that was already being looked at by Amr.  In the paper, Khan and Moura 
-      explain the problem that previous existing distributed Kalman filter methods made assumptions that were either 
-      suboptimal or too strict. They instead propose the following for distributing the computation and thereby enabling 
-      scalability:
-      <ul>
-        <li>Spatially decompose the large scale system into smaller locally coupled dynamical systems</li>
-        <li>Utilize fusion and local average consensus algorithms in order to combine reduced observation variables 
-          corresponding to local state vectors</li>
-        <li>Use a distributed iterate collapse inversion with overrelaxation (DICI-OR) algorithm to obtain local error 
-          covariance matrices by inverting local information matrices efficiently</li>
+      <ul class="w3-navbar w3-border w3-light-grey">
+        <li><a onclick="overview()" href="javascript:void(0);">Overview</a></li>
+        <li><a class="w3-hover-blue" href="#">Link 1</a></li>
+        <li><a class="w3-hover-green" href="#">Link 2</a></li>
+        <li><a class="w3-hover-teal" href="#">Link 3</a></li>
       </ul>
-      With the above three ideas, Khan and Moura are able to present a distributed implementation of the Kalman filter which 
-      works with large scale systems without assuming anything about the connectivity of the system.  Each node is 
-      responsible for estimating a state vector containing information only about nodes in its subsystem.  The coupling 
-      between local Kalman filters is preserved which leads to a more optimal estimate.<br><br>
-      <b>Distributed Kalman Filtering for Sensor Networks [R. Oflati Saber]</b><br><br>
-      The paper presents 3 algorithms applicable for wireless sensor networks. In the author’s previous paper on the same 
-      topic, the requirement was that the sensors have identical observation matrices, which would hold good only if we are 
-      observing a system-wide process. This would not fit well into our test scenario. The new paper that we study here is 
-      applicable to nodes with different observation matrices and leverages the concept of consensus filters and fusion of 
-      the node data cum covariance matrices.<br><br>
-      The noted drawbacks of this paper are that the implementation aims towards a network of nodes that observe a moving 
-      object, with the primary application being in the realm of target tracking. While this may work well for indoor 
-      position of moving objects (such as the quadrotor that was tracked and time synchronized), its efficacy might be 
-      limited when we are trying to do the same for the static nodes case, since distant nodes may not be well suited in 
-      terms of the UWB accuracy. The second drawback as stated in the 1st paper by Khan and Moura is that the algorithm 
-      implements consensus protocols which are assumed to converge asymptotically. This implies that between the time steps 
-      of the Kalman filter, we would require a large number of iterations to achieve the desired convergence. Thus the 
-      optimality of this implementation is subject to further evaluation.</p>
-      <h3>Week 3</h3>
-      <p>Having formally identified the project topic along with the Professor’s approval, we proceeded towards meeting 
-        with the lab mentor assigned to the S-SLATS project. The week’s goal was to understand the current implementation 
-        and to orient ourselves with the underlying code base.<br><br>
-        We were supplied with the SLATS paper [Martin, Symington & Srivastava], that we had to go through to start. The key 
-        features of the solution were recognized as below:
+      <div id="mycontent">
+        <p>Description: As the density of wireless, resource-constrained sensors grows, so does the need to choreograph their 
+          actions across both time and space. We aim to develop a novel approach to simultaneously localizing and time 
+          synchronizing networked mobile devices. We would like to extend the size of a network of test beds by duplicating 
+          an available PCB design to show the scalability factor. Then use scalable distributed kalman filter to simultaneously 
+          localize and time synchronize a network of testbeds.</p>
+        <p>The Networked and Embedded Systems Lab (NESL) currently has a setup with several monitors placed around the room, 
+          tracking a series of stationary nodes using UWB. Existing programs allow us to estimate their positions and clock 
+          skew by utilizing a distributed Kalman filter at each node. The problem is that each node currently works with 
+          state vectors containing information about all nodes; as the number of nodes increases, such computation will 
+          quickly grow to become unscalable.
+          <br>
+          <br>
+          Our current goal is to implement a distributed Kalman filtering scheme at each node that allows each node to 
+          estimate its own state and that of its neighbors, without requiring data or estimation about other nodes in the 
+          network. Preliminary research has identified two papers of possible use; "Distributing the Kalman Filter for 
+          Large-Scale Systems", by Usman A. Khan and Jos&eacute; M.F. Moura, and "Distributed Kalman Filtering for Sensor 
+          Networks", by R. Olfati-Saber.
+        </p>
+        <hr>
+        <h2>Weekly Progress</h2>
+        <h3>Week 5 and 6</h3>
+        <p>We have been working to identify and fit the matrices and equations involved in our setup with that of the paper by 
+          Khan and Moura.  We have created a summarized guide that we plan to follow in order to get the Kalman filter 
+          working.  The guide can be found <a href="https://github.com/crowbat/EE202A-proj/blob/gh-pages/dkf_guide.pdf">here
+        </a>.
+        <h3>Week 4</h3>
+        <p>This week’s goal was to identify and study distributed algorithms for localization and time synchronization. 
+          In this front, we were able to identify 2 papers that would possibly meet our requirements. The main ideas of each 
+          paper are introduced below; the actual algorithms can be found in the papers listed.<br><br>
+        <b>Distributing the Kalman Filter for Large-Scale Systems [Usman A. Khan, Jose M. F. Moura]</b><br><br>
+        This paper presents one identified algorithm that was already being looked at by Amr.  In the paper, Khan and Moura 
+        explain the problem that previous existing distributed Kalman filter methods made assumptions that were either 
+        suboptimal or too strict. They instead propose the following for distributing the computation and thereby enabling 
+        scalability:
         <ul>
-          <li>Used the Extended Kalman Filter method to estimate device position and clock offsets/bias. Packet timestamps 
-            were used for measurements in terms of time and encompassing geometry of the testbed network.</li>
-          <li>The testbed of nodes have an onboard UWB radio transceiver that enables the localization process among the 
-            static/dynamic node(s).</li>
-          <li>The implementation of EKF algorithm requires centralized server for carrying out the computations, and is thus 
-            restricted in terms of scalability.  </li> 
-          <li>The SLATS algorithm gives the flexibility to choose the appropriate type to balance the messaging overheads 
-            with the positioning/time synchronization accuracy.</li>
-          <li>Given the centralized approach, the algorithm would be difficult to scale to fit large node deployments such as 
-            multi-hop IoT nodes and other edgeless networks.</li>
+          <li>Spatially decompose the large scale system into smaller locally coupled dynamical systems</li>
+          <li>Utilize fusion and local average consensus algorithms in order to combine reduced observation variables 
+            corresponding to local state vectors</li>
+          <li>Use a distributed iterate collapse inversion with overrelaxation (DICI-OR) algorithm to obtain local error 
+            covariance matrices by inverting local information matrices efficiently</li>
         </ul>
-        The paper identifies the limitation and proposes use cases as robot localization, pedestrian tracking and other 
-        small scale node deployments where the calculation matrices are small enough to enable backend computation.</p>
-      <h3>Week 2</h3>
-      <p>The week’s goal was to identify project idea and discuss the same with the Professor. After 2 rounds of discussion 
-        and with the professor’s approval, we decided to move ahead with the S-SLATS project given our coursework and study 
-        background.</p>
-      <h3>Week 1</h3>
-      <p>General Orientation.</p>
-      <hr>
-      <h2 align="center">Tentative Timeline</h2>
-      <table align="center">
-        <tr>
-          <th>Week</th>
-          <th>Weekly Objective</th>
-          <th>Task Completed?</th>
-        </tr>
-        <tr>
-          <td>1</td>
-          <td>Class orientation</td>
-          <td>Yes</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>Project topic identification and approval</td>
-          <td>Yes</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>Meet with lab mentor and formalize goals</td>
-          <td>Yes</td>
-        </tr>
-        <tr>
-          <td>4</td>
-          <td>Requirements gathering and understanding existing implementation, identifying possible algorithms to implement 
-            scalable version of current solution</td>
-          <td>Yes</td>
-        </tr>
-        <tr>
-          <td>5</td>
-          <td>Working with current code and implementing identified algorithm</td>
-          <td>Yes</td>
-        </tr>
-        <tr>
-          <td>6</td>
-          <td>Working with current code and implementing identified algorithm</td>
-          <td>Yes</td>
-        </tr>
-        <tr>
-          <td>7</td>
-          <td>Working with current code and implementing identified algorithm</td>
-          <td>In pipeline</td>
-        </tr>
-        <tr>
-          <td>8</td>
-          <td>Engineering work for additional nodes and simulations on expanded testbed</td>
-          <td>In pipeline</td>
-        </tr>
-        <tr>
-          <td>9</td>
-          <td>Engineering work for additional nodes and simulations on expanded testbed</td>
-          <td>In pipeline</td>
-        </tr>
-        <tr>
-          <td>10</td>
-          <td>Compiling project findings and making formal inferences regarding new algorithm’s efficacy in scaled testbed</td>
-          <td>In pipeline</td>
-        </tr>
-        <tr>
-          <td>Finals</td>
-          <td>Presentations/submissions</td>
-          <td>In pipeline</td>
-        </tr>
-      </table>
+        With the above three ideas, Khan and Moura are able to present a distributed implementation of the Kalman filter which 
+        works with large scale systems without assuming anything about the connectivity of the system.  Each node is 
+        responsible for estimating a state vector containing information only about nodes in its subsystem.  The coupling 
+        between local Kalman filters is preserved which leads to a more optimal estimate.<br><br>
+        <b>Distributed Kalman Filtering for Sensor Networks [R. Oflati Saber]</b><br><br>
+        The paper presents 3 algorithms applicable for wireless sensor networks. In the author’s previous paper on the same 
+        topic, the requirement was that the sensors have identical observation matrices, which would hold good only if we are 
+        observing a system-wide process. This would not fit well into our test scenario. The new paper that we study here is 
+        applicable to nodes with different observation matrices and leverages the concept of consensus filters and fusion of 
+        the node data cum covariance matrices.<br><br>
+        The noted drawbacks of this paper are that the implementation aims towards a network of nodes that observe a moving 
+        object, with the primary application being in the realm of target tracking. While this may work well for indoor 
+        position of moving objects (such as the quadrotor that was tracked and time synchronized), its efficacy might be 
+        limited when we are trying to do the same for the static nodes case, since distant nodes may not be well suited in 
+        terms of the UWB accuracy. The second drawback as stated in the 1st paper by Khan and Moura is that the algorithm 
+        implements consensus protocols which are assumed to converge asymptotically. This implies that between the time steps 
+        of the Kalman filter, we would require a large number of iterations to achieve the desired convergence. Thus the 
+        optimality of this implementation is subject to further evaluation.</p>
+        <h3>Week 3</h3>
+        <p>Having formally identified the project topic along with the Professor’s approval, we proceeded towards meeting 
+          with the lab mentor assigned to the S-SLATS project. The week’s goal was to understand the current implementation 
+          and to orient ourselves with the underlying code base.<br><br>
+          We were supplied with the SLATS paper [Martin, Symington & Srivastava], that we had to go through to start. The key 
+          features of the solution were recognized as below:
+          <ul>
+            <li>Used the Extended Kalman Filter method to estimate device position and clock offsets/bias. Packet timestamps 
+              were used for measurements in terms of time and encompassing geometry of the testbed network.</li>
+            <li>The testbed of nodes have an onboard UWB radio transceiver that enables the localization process among the 
+              static/dynamic node(s).</li>
+            <li>The implementation of EKF algorithm requires centralized server for carrying out the computations, and is thus 
+              restricted in terms of scalability.  </li> 
+            <li>The SLATS algorithm gives the flexibility to choose the appropriate type to balance the messaging overheads 
+              with the positioning/time synchronization accuracy.</li>
+            <li>Given the centralized approach, the algorithm would be difficult to scale to fit large node deployments such as 
+              multi-hop IoT nodes and other edgeless networks.</li>
+          </ul>
+          The paper identifies the limitation and proposes use cases as robot localization, pedestrian tracking and other 
+          small scale node deployments where the calculation matrices are small enough to enable backend computation.</p>
+        <h3>Week 2</h3>
+        <p>The week’s goal was to identify project idea and discuss the same with the Professor. After 2 rounds of discussion 
+          and with the professor’s approval, we decided to move ahead with the S-SLATS project given our coursework and study 
+          background.</p>
+        <h3>Week 1</h3>
+        <p>General Orientation.</p>
+        <hr>
+        <h2 align="center">Tentative Timeline</h2>
+        <table align="center">
+          <tr>
+            <th>Week</th>
+            <th>Weekly Objective</th>
+            <th>Task Completed?</th>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>Class orientation</td>
+            <td>Yes</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Project topic identification and approval</td>
+            <td>Yes</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>Meet with lab mentor and formalize goals</td>
+            <td>Yes</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>Requirements gathering and understanding existing implementation, identifying possible algorithms to implement 
+              scalable version of current solution</td>
+            <td>Yes</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>Working with current code and implementing identified algorithm</td>
+            <td>Yes</td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td>Working with current code and implementing identified algorithm</td>
+            <td>Yes</td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td>Working with current code and implementing identified algorithm</td>
+            <td>In pipeline</td>
+          </tr>
+          <tr>
+            <td>8</td>
+            <td>Engineering work for additional nodes and simulations on expanded testbed</td>
+            <td>In pipeline</td>
+          </tr>
+          <tr>
+            <td>9</td>
+            <td>Engineering work for additional nodes and simulations on expanded testbed</td>
+            <td>In pipeline</td>
+          </tr>
+          <tr>
+            <td>10</td>
+            <td>Compiling project findings and making formal inferences regarding new algorithm’s efficacy in scaled testbed</td>
+            <td>In pipeline</td>
+          </tr>
+          <tr>
+            <td>Finals</td>
+            <td>Presentations/submissions</td>
+            <td>In pipeline</td>
+          </tr>
+        </table>
+      </div>
     </div>
     <script src="javascripts/scale.fix.js"></script>
     

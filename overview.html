@@ -1,0 +1,18 @@
+<p>Description: As the density of wireless, resource-constrained sensors grows, so does the need to choreograph their 
+    actions across both time and space. We aim to develop a novel approach to simultaneously localizing and time 
+    synchronizing networked mobile devices. We would like to extend the size of a network of test beds by duplicating 
+    an available PCB design to show the scalability factor. Then use scalable distributed kalman filter to simultaneously 
+    localize and time synchronize a network of testbeds.</p>
+<p>The Networked and Embedded Systems Lab (NESL) currently has a setup with several monitors placed around the room, 
+    tracking a series of stationary nodes using UWB. Existing programs allow us to estimate their positions and clock 
+    skew by utilizing a distributed Kalman filter at each node. The problem is that each node currently works with 
+    state vectors containing information about all nodes; as the number of nodes increases, such computation will 
+    quickly grow to become unscalable.
+    <br>
+    <br>
+    Our current goal is to implement a distributed Kalman filtering scheme at each node that allows each node to 
+    estimate its own state and that of its neighbors, without requiring data or estimation about other nodes in the 
+    network. Preliminary research has identified two papers of possible use; "Distributing the Kalman Filter for 
+    Large-Scale Systems", by Usman A. Khan and Jos&eacute; M.F. Moura, and "Distributed Kalman Filtering for Sensor 
+    Networks", by R. Olfati-Saber.
+</p>
