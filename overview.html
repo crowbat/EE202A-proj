@@ -3,13 +3,18 @@ actions across both time and space. We aim to develop a novel approach to simult
 synchronizing networked mobile devices. We would like to extend the size of a network of test beds by duplicating 
 an available PCB design to show the scalability factor. Then we would use a scalable distributed kalman filter to simultaneously localize and time synchronize a network of testbeds.
 <br>
+<br>
 We aim to implement a novel approach based on [1], for simultaneously localizing and time synchronizing networked mobile devices while supporting a scalable design. The implementation is then compared with other solutions that aim at supporting distributable design by breaking down the larger network into a set of smaller subsystems comprising of reduced error covariance matrices and state vector estimates.
+<br>
 <br>
 The Networked and Embedded Systems Lab (NESL) currently has a setup with several monitors placed around the room, tracking a series of stationary nodes using UWB. The test network is comprised of 8 static nodes and 1 mobile node (a CrazyFlie 2.0 quadroter).  These nodes collect data about their true positions from motion capture cameras placed around the room, and communicate measurements with each other over UWB using DW1000 IR-UWB radios.  Existing programs allow us to estimate their positions and clock skew by utilizing a distributed Kalman filter at each node.
 <br>
+<br>
 The problem is that each node currently works with state vectors containing information about all nodes; as the number of nodes increases, such computation will quickly grow to become non-scalable.  To translate this to numeric figures, In the present lab setup with 8 nodes, and each node having 5 states to track, the size of the error covariance matrix and the state vectors is 40x40 and 40x1 respectively. While this seems like a manageable size in terms of computation cost and tracking the states, it is noted that increase in the node count would adversely impact feasibility of such a centralized implementation. Through the project, we explore and implement some of the solutions that help in distributing this large matrix of error covariance as well as the large state vector. The critical idea is to break down a global network of nodes into subsystems of smaller neighborhoods, with each neighborhood keeping a track of only nodes within its realm. This in turn breaks down the error covariance matrices and state vectors sizes and aids scalability. 
 <br>
+<br>
 Preliminary research has identified two papers of possible use; [1] and [2]. After a study of the two papers, it was decided that we would be implementing the Khan, Moura [1] version of distributed EKF for slats. 
+<br>
 <br>
 The report is organized in the following way – Section 1 served as the introduction to the project and presented the project objective. Section 2 gives a brief overview of the current centralized SLATS implementation that is in place at NESL. It also looks at a few other algorithms that have been used to tackle the problem of scalability. Section 3 covers the specific DICI-OR algorithm that has been implemented as a part of the project. This serves as the key concept here, with its usefulness being in distributed matrix inversions – critical to break down the error covariance matrices and state vectors in each neighborhood, thereby aiding scalability. Section 4 proceeds to present the mean error observations using the DICI-OR algorithm and seeks to compare the obtained results with baseline performance of fully connected network.
 </p>

@@ -1,14 +1,23 @@
-<p>The centralized implementation [3] has been implemented in the NESL lab. The key features of the solution were recognized as below:
-Used the Extended Kalman Filter method to estimate device position and clock offsets/bias. Packet timestamps were used for measurements in terms of time and encompassing geometry of the testbed network.
-The testbed nodes have an onboard UWB radio transceiver that enables the localization process among the static/dynamic node(s).
-The implementation of EKF algorithm requires centralized server for carrying out the computations, and is thus restricted in terms of scalability.
-The SLATS algorithm gives the flexibility to choose the appropriate type to balance the messaging overheads with the positioning/time synchronization accuracy.
-Given the centralized approach, the algorithm would be difficult to scale to fit large node deployments such as multi-hop IoT nodes and other edgeless networks.
-The paper identifies the limitation and proposes use cases as robot localization, pedestrian tracking and other small scale node deployments where the calculation matrices are small enough to enable backend computation.
+<p>The centralized implementation [3] has been implemented in the NESL lab. The key features of the solution were recognized as below:</p>
+<ul>
+    <li>Used the Extended Kalman Filter method to estimate device position and clock offsets/bias. Packet timestamps were used for measurements in terms of time and encompassing geometry of the testbed network.</li>
+    <li>The testbed nodes have an onboard UWB radio transceiver that enables the localization process among the static/dynamic node(s).</li>
+    <li>The implementation of EKF algorithm requires centralized server for carrying out the computations, and is thus restricted in terms of scalability.</li>
+    <li>The SLATS algorithm gives the flexibility to choose the appropriate type to balance the messaging overheads with the positioning/time synchronization accuracy.</li>
+    <li>Given the centralized approach, the algorithm would be difficult to scale to fit large node deployments such as multi-hop IoT nodes and other edgeless networks.</li>
+</ul>
+<p>The paper identifies the limitation and proposes use cases as robot localization, pedestrian tracking and other small scale node deployments where the calculation matrices are small enough to enable backend computation.
+<br>
+<br>
 There have been attempts to distribute the computation with different takes towards solving the problem. [1,2,4,5] form some of the methods to achieve this distribution. In [4], the author presents 3 algorithms applicable for wireless sensor networks. In the author’s previous paper on the same topic, the requirement was that the sensors have identical observation matrices, which would hold good only if we are observing a system-wide process. This would not fit well into our test scenario. The new paper [1] that we study here is applicable to nodes with different observation matrices and leverages the concept of consensus filters and fusion of the node data cum covariance matrices.
+<br>
 <br>
 
 The noted drawbacks of this paper are that the implementation aims towards a network of nodes that observe a moving object, with the primary application being in the realm of target tracking. While this may work well for indoor position of moving objects (such as the quadrotor that was tracked and time synchronized), its efficacy might be limited when we are trying to do the same for the static nodes case, since distant nodes may not be well suited in terms accuracy. The second drawback as stated in the 1st paper by Khan and Moura is that the algorithm implements consensus protocols which are assumed to converge asymptotically. This implies that between the time steps of the Kalman filter, we would require many iterations to achieve the desired convergence. Thus, the implementation does not translate to an optimal setup.
-In [5], the author dives into the problem of distributed state space estimation as well as implements the extended Kalman filter version for the same. The author goes to claim that the proposed algorithm is robust to link failures, and is distributable given that no observation fusion centers are required. The nodes are configured to connect to the neighbor only as well. The author vouches for the efficacy of diffusion algorithms and claims they are amenable for real time applications and obtain good performance in terms of the measurements. The diffusion EKF filter provides good results for numbers that will be present through the course of this compiled report. One of the drawbacks for implementing this algorithm in a fully distributed manner is that in addition to the state measurements and covariance, nodes in a neighborhood also need to have access to the measurement functions of its neighbors and their derivatives. 
+<br>
+<br>
+In [5], the author dives into the problem of distributed state space estimation as well as implements the extended Kalman filter version for the same. The author goes to claim that the proposed algorithm is robust to link failures, and is distributable given that no observation fusion centers are required. The nodes are configured to connect to the neighbor only as well. The author vouches for the efficacy of diffusion algorithms and claims they are amenable for real time applications and obtain good performance in terms of the measurements. The diffusion EKF filter provides good results for numbers that will be present through the course of this compiled report. One of the drawbacks for implementing this algorithm in a fully distributed manner is that in addition to the state measurements and covariance, nodes in a neighborhood also need to have access to the measurement functions of its neighbors and their derivatives.
+<br>
+<br>
 The key idea with the non-linear estimators, the algorithm can be linearized around the desirable end points of interest. There are other methods such as the optimization method, whose results would be presented in the following sections. 
 </p>

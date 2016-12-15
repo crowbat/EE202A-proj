@@ -1,7 +1,9 @@
 In order to determine how the different implementations perform when the size of the network grows, we decided to go and make 15 more nodes, 10 of which will be used immediately to increase the network in the NESL laboratory. We had to route more ethernet cables for this effort, which plug into the PoE (Power over Ethernet) Bridge that hooks up to the server. We expect to see that the error will reach some lower bound, beyond which more nodes does not improve the performance. More nodes will also allow for different sub-networks to be created. The NESL lab size is fixed however, and so the area the network spans will not really be increased, but will be more finely covered.
-
+<br>
+<br>
 
 To assemble the boards, we have chosen ChinaPCBone, located in China, due to lower cost of assembly. The previous board designs did not meet specifications for the board fabrication house, so we updated silkscreen, and moved around parts to meet minimum spacing requirements. Read-Me’s were also created to simplify future orders, and simplify future revisions to the boards.
-
+<br>
+<br>
 
 The boards have not yet arrived from ChinaPCBone, they should arrive roughly around 12/23, at which point the final steps for extending the testbed can be performed. (1) The ethernet cables still need to be connected to the Server’s PoE brick (though they have been routed through the ceiling). (2) The boards need to be tested for proper functioning, particularly the PoE circuitry and Arm processor. (3) The boards need to have firmware loaded, with unique ip addresses assigned. (4) Lastly, the SLATS code needs to be updated to reflect the new network, increasing the nodes and setting their ground truth positions.

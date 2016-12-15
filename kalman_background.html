@@ -1,17 +1,20 @@
 <p>Kalman filter finds applications in those domains where you want to predict the next state that a system would be in based on some of its previous states. The filter memory requirement is simple as the filter needs to track only one step history of the states for arriving at its current prediction. This is then done iteratively till the estimates reach convergence in the case of static systems. For our use case, since the node location  is fixed, the convergence of position estimates is observed after a few Kalman filter iterations. The method is also quick, making it suitable for embedded systems uses and real time simulations and tracking. 
-
-
+<br>
+<br>
 One example of a use case is for instance tracking the position of a robot based on the velocity at which it is moving. We thus define the state vector to contain both the position p as well as the velocity v. The states can be used to track any underlying property of the system. Here in our project, it is adapted to the position x,y,z and the clock offset and bias. The covariance Gaussian blob for the 2 random variables can be plotted as below:
 </p>
 <br>
 <div class="image">
-<img src="images/kalman1.png" height="42" width="42">
+<img src="images/kalman1.png" height="500" width="500">
 <div>Figure 1: Gaussian Blob for Position and Velocity Example</div>
 </div>
 <div class="image">
-<img src="images/kalman2.png" height="42" width="42">
+<img src="images/kalman2.png" height="500" width="500">
 <div>Figure 2: Given that the velocity and the subsequent position are correlated, our covariance blob looks like above</div>
 </div>
+<br>
+<br>
 <p>The correlation between the velocity and the future position makes for a correlated Gaussian blob. This is an important factor to track as it returns more information about how the process update would be affected. 
+<br>
 <br>
 The above correlation is essentially captured as a covariance matrix with a given degree of correlation. The covariance matrix would typically be a symmetric matrix. Now at the high level each time step of measurement, this Gaussian blob would change its position in the example 2D variance plot as per the radio observations and through multiple iterations. The translation is also guided by the F matrix or the model matrix. The model matrix defines how x state at present affects the x state predicted to come next. The predictions can be modified by using external influence (not considered here in this project) as well as by considering some observation noise which accounts for the uncertainty in the estimates. The math behind Kalman filtering has been kept aside to keep the implementation simple.</p>
