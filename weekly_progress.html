@@ -1,126 +1,124 @@
-<h2>Weekly Progress</h2>
-        <h3>Week 10</h3>
-        <p>We came up with a state passing mechanism where a node that is connected to the reference node would send estimates of its own state to its neighbors.  For neighbors that were more than one hop away from the reference node, we found their time sync errors to become much smaller, almost matching those of nodes that are directly connected to the reference node.  Positional errors are still relatively small.</p>
-        <h3>Week 9</h3>
-        <p>The new filter has helped in making localization error smaller and fixing the "gravitational" effect we were seeing in positional estimates.  However, time synchronization is still an issue, as it seems like nodes not connected to the reference node have a hard time determining a correct offset.  We will try and come up with a solution for this issue.</p>
-        <h3>Week 8</h3>
-        <p>We have finished converting the existing implementation to a reduced form, and observed that localization errors were becoming more prevalent.  There is a phenomenon where certain node position estimates would "gravitate" towards each other.  We think this is because the reduced form of the existing filter tries to take inverses of submatrices of the global covariance matrix, which is not a valid operation since inverses of submatrices do not correspond to submatrices of the global inverse.  To fix this, we will try implementing the DICI-OR algorithm, which claims to help alleviate this problem.</p>
-        <h3>Week 7</h3>
-        <p>We began modifying the code in the existing codebase to try and implement the filter presented in the paper.  The first step to perform was to convert existing implementation that uses full state vectors into a version using reduced state vectors, and reduced covariance matrices.</p>
-        <h3>Week 5 and 6</h3>
-        <p>We have been working to identify and fit the matrices and equations involved in our setup with that of the paper by 
-          Khan and Moura.  We have created a summarized guide that we plan to follow in order to get the Kalman filter 
-          working.  The guide can be found <a href="https://github.com/crowbat/EE202A-proj/blob/gh-pages/dkf_guide.pdf">here
-        </a>.
-        <h3>Week 4</h3>
-        <p>This week’s goal was to identify and study distributed algorithms for localization and time synchronization. 
-          In this front, we were able to identify 2 papers that would possibly meet our requirements. The main ideas of each 
-          paper are introduced below; the actual algorithms can be found in the papers listed.<br><br>
-        <b>Distributing the Kalman Filter for Large-Scale Systems [Usman A. Khan, Jose M. F. Moura]</b><br><br>
-        This paper presents one identified algorithm that was already being looked at by Amr.  In the paper, Khan and Moura 
-        explain the problem that previous existing distributed Kalman filter methods made assumptions that were either 
-        suboptimal or too strict. They instead propose the following for distributing the computation and thereby enabling 
-        scalability:
-        <ul>
-          <li>Spatially decompose the large scale system into smaller locally coupled dynamical systems</li>
-          <li>Utilize fusion and local average consensus algorithms in order to combine reduced observation variables 
-            corresponding to local state vectors</li>
-          <li>Use a distributed iterate collapse inversion with overrelaxation (DICI-OR) algorithm to obtain local error 
-            covariance matrices by inverting local information matrices efficiently</li>
-        </ul>
-        With the above three ideas, Khan and Moura are able to present a distributed implementation of the Kalman filter which 
-        works with large scale systems without assuming anything about the connectivity of the system.  Each node is 
-        responsible for estimating a state vector containing information only about nodes in its subsystem.  The coupling 
-        between local Kalman filters is preserved which leads to a more optimal estimate.<br><br>
-        <h3>Week 3</h3>
-        <p>Having formally identified the project topic along with the Professor’s approval, we proceeded towards meeting 
-          with the lab mentor assigned to the S-SLATS project. The week’s goal was to understand the current implementation 
-          and to orient ourselves with the underlying code base.<br><br>
-          We were supplied with the SLATS paper [Martin, Symington & Srivastava], that we had to go through to start. The key 
-          features of the solution were recognized as below:
-          <ul>
-            <li>Used the Extended Kalman Filter method to estimate device position and clock offsets/bias. Packet timestamps 
-              were used for measurements in terms of time and encompassing geometry of the testbed network.</li>
-            <li>The testbed of nodes have an onboard UWB radio transceiver that enables the localization process among the 
-              static/dynamic node(s).</li>
-            <li>The implementation of EKF algorithm requires centralized server for carrying out the computations, and is thus 
-              restricted in terms of scalability.  </li> 
-            <li>The SLATS algorithm gives the flexibility to choose the appropriate type to balance the messaging overheads 
-              with the positioning/time synchronization accuracy.</li>
-            <li>Given the centralized approach, the algorithm would be difficult to scale to fit large node deployments such as 
-              multi-hop IoT nodes and other edgeless networks.</li>
-          </ul>
-          The paper identifies the limitation and proposes use cases as robot localization, pedestrian tracking and other 
-          small scale node deployments where the calculation matrices are small enough to enable backend computation.</p>
-        <h3>Week 2</h3>
-        <p>The week’s goal was to identify project idea and discuss the same with the Professor. After 2 rounds of discussion 
-          and with the professor’s approval, we decided to move ahead with the S-SLATS project given our coursework and study 
-          background.</p>
-        <h3>Week 1</h3>
-        <p>General Orientation.</p>
-        <hr>
-        <h2 align="center">Tentative Timeline</h2>
-        <table align="center">
-          <tr>
-            <th>Week</th>
-            <th>Weekly Objective</th>
-            <th>Task Completed?</th>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>Class orientation</td>
-            <td>Yes</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Project topic identification and approval</td>
-            <td>Yes</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>Meet with lab mentor and formalize goals</td>
-            <td>Yes</td>
-          </tr>
-          <tr>
-            <td>4</td>
-            <td>Requirements gathering and understanding existing implementation, identifying possible algorithms to implement 
-              scalable version of current solution</td>
-            <td>Yes</td>
-          </tr>
-          <tr>
-            <td>5</td>
-            <td>Working with current code and implementing identified algorithm</td>
-            <td>Yes</td>
-          </tr>
-          <tr>
-            <td>6</td>
-            <td>Working with current code and implementing identified algorithm</td>
-            <td>Yes</td>
-          </tr>
-          <tr>
-            <td>7</td>
-            <td>Working with current code and implementing identified algorithm</td>
-            <td>Yes</td>
-          </tr>
-          <tr>
-            <td>8</td>
-            <td>Engineering work for additional nodes and simulations on expanded testbed</td>
-            <td>In pipeline</td>
-          </tr>
-          <tr>
-            <td>9</td>
-            <td>Engineering work for additional nodes and simulations on expanded testbed</td>
-            <td>In pipeline</td>
-          </tr>
-          <tr>
-            <td>10</td>
-            <td>Compiling project findings and making formal inferences regarding new algorithm’s efficacy in scaled testbed</td>
-            <td>Yes</td>
-          </tr>
-          <tr>
-            <td>Finals</td>
-            <td>Presentations/submissions</td>
-            <td>Yes</td>
-          </tr>
-        </table>
-        The engineering work stated for week 8 and 9 currently remains unfinished since we are waiting for the new boards to be shipped to us.  Estimated delivery date currently stands at Dec. 23.
+<h3>Week 10</h3>
+<p>We came up with a state passing mechanism where a node that is connected to the reference node would send estimates of its own state to its neighbors.  For neighbors that were more than one hop away from the reference node, we found their time sync errors to become much smaller, almost matching those of nodes that are directly connected to the reference node.  Positional errors are still relatively small.</p>
+<h3>Week 9</h3>
+<p>The new filter has helped in making localization error smaller and fixing the "gravitational" effect we were seeing in positional estimates.  However, time synchronization is still an issue, as it seems like nodes not connected to the reference node have a hard time determining a correct offset.  We will try and come up with a solution for this issue.</p>
+<h3>Week 8</h3>
+<p>We have finished converting the existing implementation to a reduced form, and observed that localization errors were becoming more prevalent.  There is a phenomenon where certain node position estimates would "gravitate" towards each other.  We think this is because the reduced form of the existing filter tries to take inverses of submatrices of the global covariance matrix, which is not a valid operation since inverses of submatrices do not correspond to submatrices of the global inverse.  To fix this, we will try implementing the DICI-OR algorithm, which claims to help alleviate this problem.</p>
+<h3>Week 7</h3>
+<p>We began modifying the code in the existing codebase to try and implement the filter presented in the paper.  The first step to perform was to convert existing implementation that uses full state vectors into a version using reduced state vectors, and reduced covariance matrices.</p>
+<h3>Week 5 and 6</h3>
+<p>We have been working to identify and fit the matrices and equations involved in our setup with that of the paper by 
+    Khan and Moura.  We have created a summarized guide that we plan to follow in order to get the Kalman filter 
+    working.  The guide can be found <a href="https://github.com/crowbat/EE202A-proj/blob/gh-pages/dkf_guide.pdf">here
+</a>.
+<h3>Week 4</h3>
+<p>This week’s goal was to identify and study distributed algorithms for localization and time synchronization. 
+    In this front, we were able to identify 2 papers that would possibly meet our requirements. The main ideas of each 
+    paper are introduced below; the actual algorithms can be found in the papers listed.<br><br>
+<b>Distributing the Kalman Filter for Large-Scale Systems [Usman A. Khan, Jose M. F. Moura]</b><br><br>
+This paper presents one identified algorithm that was already being looked at by Amr.  In the paper, Khan and Moura 
+explain the problem that previous existing distributed Kalman filter methods made assumptions that were either 
+suboptimal or too strict. They instead propose the following for distributing the computation and thereby enabling 
+scalability:
+<ul>
+    <li>Spatially decompose the large scale system into smaller locally coupled dynamical systems</li>
+    <li>Utilize fusion and local average consensus algorithms in order to combine reduced observation variables 
+    corresponding to local state vectors</li>
+    <li>Use a distributed iterate collapse inversion with overrelaxation (DICI-OR) algorithm to obtain local error 
+    covariance matrices by inverting local information matrices efficiently</li>
+</ul>
+With the above three ideas, Khan and Moura are able to present a distributed implementation of the Kalman filter which 
+works with large scale systems without assuming anything about the connectivity of the system.  Each node is 
+responsible for estimating a state vector containing information only about nodes in its subsystem.  The coupling 
+between local Kalman filters is preserved which leads to a more optimal estimate.<br><br>
+<h3>Week 3</h3>
+<p>Having formally identified the project topic along with the Professor’s approval, we proceeded towards meeting 
+    with the lab mentor assigned to the S-SLATS project. The week’s goal was to understand the current implementation 
+    and to orient ourselves with the underlying code base.<br><br>
+    We were supplied with the SLATS paper [Martin, Symington & Srivastava], that we had to go through to start. The key 
+    features of the solution were recognized as below:
+    <ul>
+    <li>Used the Extended Kalman Filter method to estimate device position and clock offsets/bias. Packet timestamps 
+        were used for measurements in terms of time and encompassing geometry of the testbed network.</li>
+    <li>The testbed of nodes have an onboard UWB radio transceiver that enables the localization process among the 
+        static/dynamic node(s).</li>
+    <li>The implementation of EKF algorithm requires centralized server for carrying out the computations, and is thus 
+        restricted in terms of scalability.  </li> 
+    <li>The SLATS algorithm gives the flexibility to choose the appropriate type to balance the messaging overheads 
+        with the positioning/time synchronization accuracy.</li>
+    <li>Given the centralized approach, the algorithm would be difficult to scale to fit large node deployments such as 
+        multi-hop IoT nodes and other edgeless networks.</li>
+    </ul>
+    The paper identifies the limitation and proposes use cases as robot localization, pedestrian tracking and other 
+    small scale node deployments where the calculation matrices are small enough to enable backend computation.</p>
+<h3>Week 2</h3>
+<p>The week’s goal was to identify project idea and discuss the same with the Professor. After 2 rounds of discussion 
+    and with the professor’s approval, we decided to move ahead with the S-SLATS project given our coursework and study 
+    background.</p>
+<h3>Week 1</h3>
+<p>General Orientation.</p>
+<hr>
+<h2 align="center">Tentative Timeline</h2>
+<table align="center">
+    <tr>
+    <th>Week</th>
+    <th>Weekly Objective</th>
+    <th>Task Completed?</th>
+    </tr>
+    <tr>
+    <td>1</td>
+    <td>Class orientation</td>
+    <td>Yes</td>
+    </tr>
+    <tr>
+    <td>2</td>
+    <td>Project topic identification and approval</td>
+    <td>Yes</td>
+    </tr>
+    <tr>
+    <td>3</td>
+    <td>Meet with lab mentor and formalize goals</td>
+    <td>Yes</td>
+    </tr>
+    <tr>
+    <td>4</td>
+    <td>Requirements gathering and understanding existing implementation, identifying possible algorithms to implement 
+        scalable version of current solution</td>
+    <td>Yes</td>
+    </tr>
+    <tr>
+    <td>5</td>
+    <td>Working with current code and implementing identified algorithm</td>
+    <td>Yes</td>
+    </tr>
+    <tr>
+    <td>6</td>
+    <td>Working with current code and implementing identified algorithm</td>
+    <td>Yes</td>
+    </tr>
+    <tr>
+    <td>7</td>
+    <td>Working with current code and implementing identified algorithm</td>
+    <td>Yes</td>
+    </tr>
+    <tr>
+    <td>8</td>
+    <td>Engineering work for additional nodes and simulations on expanded testbed</td>
+    <td>Order placed</td>
+    </tr>
+    <tr>
+    <td>9</td>
+    <td>Engineering work for additional nodes and simulations on expanded testbed</td>
+    <td>Order placed</td>
+    </tr>
+    <tr>
+    <td>10</td>
+    <td>Compiling project findings and making formal inferences regarding new algorithm’s efficacy in scaled testbed</td>
+    <td>Yes</td>
+    </tr>
+    <tr>
+    <td>Finals</td>
+    <td>Presentations/submissions</td>
+    <td>Yes</td>
+    </tr>
+</table>
